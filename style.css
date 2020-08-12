@@ -23,8 +23,8 @@
   top: 0;
   right: 0;
   transition: 0.8s;
-  transform: translateY(-100%);
-  opacity: 0;
+  /* transform: translateY(-100%);
+  opacity: 0; */
 }
 
 .details-calc--active {

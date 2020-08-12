@@ -13,45 +13,54 @@ const detailsCalculator = (
     calculator.classList.toggle(activeClass);
   });
 
-  const buttonSettings = (addSelector, parrentRow) => {
-    const addBtn = document.querySelector(addSelector),
-      parrent = document.querySelectorAll(parrentRow);
-    let barrier = 0;
-    addBtn.addEventListener("click", (e) => {
-      if (barrier < 4) {
-        barrier++;
-        parrent.forEach((el) => {
-          const element = el.cloneNode(true);
-          el.appendChild(element);
+  const changedInputs = () => {
+    const normal = document.querySelector(".normal"),
+      outTown = document.querySelector(".out-town"),
+      inTown = document.querySelector(".in-town"),
+      inBigTown = document.querySelector(".in-bigtown"),
+      inputsNormal = document.querySelectorAll(".input-normal"),
+      inputsOutTown = document.querySelectorAll(".input-out-town"),
+      inputsInTown = document.querySelectorAll(".input-input-in-town"),
+      inputsInBigTown = document.querySelectorAll(".input-in-bigtown");
+
+    let arrNormal = [],
+      arrOutTown = [],
+      arrInTown = [],
+      arrInBigTown = []; // Массив, куда запишутся все значения инпутов
+
+    function sumInputs(inp, arrInp) {
+      for (let i = 0; i < inp.length; i++) {
+        arrInp.push(inp[i].value); // (*1)
+
+        inp[i].addEventListener("input", function () {
+          arrInp[i] = this.value;
+          // При вводе чисел в любом инпуте, не будем пересобирать все значения,
+          // а только изменим конкретный элемент массива.
+          // this - указывает на инпут, в котором печатают (который запускает эту функцию)
+
+          // Все значения в массиве обновлены, можно обновить и результаты:
+          normalResults();
         });
       }
-    });
-  };
+    }
 
-  const changedInputs = (
-    norm,
-    out,
-    town,
-    bigtown,
-    inNorm,
-    inOut,
-    inTown,
-    inBigtown
-  ) => {
-    const n = document.querySelector(norm),
-      o = document.querySelector(out),
-      t = document.querySelector(town),
-      b = document.querySelector(bigtown),
-      iN = document.querySelectorAll(inNorm),
-      iO = document.querySelectorAll(inOut),
-      iT = document.querySelectorAll(inTown),
-      iB = document.querySelectorAll(inBigtown);
+    sumInputs(inputsNormal, arrNormal);
 
-    iN.forEach((e) => {
-      e.addEventListener("change", () => {
-        n.value += e.value;
-      });
-    });
+    normalResults();
+
+    /************/
+
+    function normalResults() {
+      normal.value = sumArr(arrNormal);
+    }
+
+    function sumArr(arr) {
+      let x = 0;
+      for (let i = 0; i < arr.length; i++) {
+        x += +arr[i]; // (*2)
+      }
+      return x;
+    }
   };
 
   changedInputs(
@@ -64,8 +73,6 @@ const detailsCalculator = (
     ".input-input-in-town",
     ".input-in-bigtown"
   );
-
-  buttonSettings(".add-row", ".details-calc-column");
 };
 
 detailsCalculator(
