@@ -12,38 +12,64 @@ const detailsCalculator = (
     e.preventDefault();
     calculator.classList.toggle(activeClass);
   });
+
+  const buttonSettings = (addSelector, parrentRow) => {
+    const addBtn = document.querySelector(addSelector),
+      parrent = document.querySelectorAll(parrentRow);
+    let barrier = 0;
+    addBtn.addEventListener("click", (e) => {
+      if (barrier < 4) {
+        barrier++;
+        parrent.forEach((el) => {
+          const element = el.cloneNode(true);
+          el.appendChild(element);
+        });
+      }
+    });
+  };
+
+  const changedInputs = (
+    norm,
+    out,
+    town,
+    bigtown,
+    inNorm,
+    inOut,
+    inTown,
+    inBigtown
+  ) => {
+    const n = document.querySelector(norm),
+      o = document.querySelector(out),
+      t = document.querySelector(town),
+      b = document.querySelector(bigtown),
+      iN = document.querySelectorAll(inNorm),
+      iO = document.querySelectorAll(inOut),
+      iT = document.querySelectorAll(inTown),
+      iB = document.querySelectorAll(inBigtown);
+
+    iN.forEach((e) => {
+      e.addEventListener("change", () => {
+        n.value += e.value;
+      });
+    });
+  };
+
+  changedInputs(
+    ".normal",
+    ".out-town",
+    ".in-town",
+    ".in-bigtown",
+    ".input-normal",
+    ".input-out-town",
+    ".input-input-in-town",
+    ".input-in-bigtown"
+  );
+
+  buttonSettings(".add-row", ".details-calc-column");
 };
 
 detailsCalculator(
   ".show-details-calc",
   ".details-calc",
   "details-calc--active"
-);
-
-const buttonSettings = (addSelector, deleteSelector, row, ...parrentRow) => {
-  const addBtn = document.querySelector(addSelector),
-    delBtn = document.querySelector(deleteSelector),
-    rows = document.querySelectorAll(row),
-    parrent = document.querySelector(parrentRow);
-
-  rows.forEach((el, i) => {});
-
-  addBtn.addEventListener("click", (e) => {
-    e.preventDefault();
-    const element = document.createElement("input");
-
-    element.classList.add(row.replace(/\./, ""));
-
-    parrent.prepend(element);
-  });
-};
-
-buttonSettings(
-  ".add-row",
-  ".delete-row",
-  ".details-calc--input",
-  ".normal-column",
-  ".out-town-column",
-  ".in-town-column",
-  ".in-bigtown-column"
 );

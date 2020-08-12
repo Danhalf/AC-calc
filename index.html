@@ -17,32 +17,41 @@
       <div class="show-details-calc">Show me Details calculator</div>
 
       <div class="details-calc">
-        <div class="normal-column">
-          <input type="text" class="details-calc--input input-normal" />
-          <input type="text" class="details-calc--input input-normal" />
-          <input type="text" class="details-calc--input input-normal" />
-          <p class="details-calc-text"></p>
+        <div class="normal-column details-calc-column">
+          <input
+            placeholder="Загальна норма"
+            type="text"
+            class="details-calc--input input-normal"
+          />
+          <input
+            placeholder="Загальна норма"
+            type="text"
+            class="details-calc--input input-normal"
+          />
         </div>
-        <div class="out-town-column">
-          <input type="text" class="details-calc--input input-out-town" />
-          <input type="text" class="details-calc--input input-out-town" />
-          <input type="text" class="details-calc--input input-out-town" />
+        <div class="out-town-column details-calc-column">
+          <input
+            placeholder="За містом (-15%)"
+            type="text"
+            class="details-calc--input input-out-town"
+          />
         </div>
-        <div class="in-town-column">
-          <input type="text" class="details-calc--input input-in-town" />
-          <input type="text" class="details-calc--input input-in-town" />
-          <input type="text" class="details-calc--input input-in-town" />
+        <div class="in-town-column details-calc-column">
+          <input
+            placeholder="По місту (+5%)"
+            type="text"
+            class="details-calc--input input-in-town"
+          />
         </div>
 
-        <div class="in-bigtown-column">
-          <input type="text" class="details-calc--input input-in-bigtown" />
-          <input type="text" class="details-calc--input input-in-bigtown" />
-          <input type="text" class="details-calc--input input-in-bigtown" />
-          <div class="details-calc__buttons">
-            <div class="add-row details-calc__button">+</div>
-            <div class="delete-row details-calc__button">-</div>
-          </div>
+        <div class="in-bigtown-column details-calc-column">
+          <input
+            placeholder="По місту (+10%)"
+            type="text"
+            class="details-calc--input input-in-bigtown"
+          />
         </div>
+        <div class="add-row details-calc__button">Додати рядки</div>
       </div>
     </div>
     <script src="script.js"></script>
