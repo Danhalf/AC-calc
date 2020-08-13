@@ -20,15 +20,36 @@ const detailsCalculator = (
       inBigTown = document.querySelector(".in-bigtown"),
       inputsNormal = document.querySelectorAll(".input-normal"),
       inputsOutTown = document.querySelectorAll(".input-out-town"),
-      inputsInTown = document.querySelectorAll(".input-input-in-town"),
+      inputsInTown = document.querySelectorAll(".input-in-town"),
       inputsInBigTown = document.querySelectorAll(".input-in-bigtown");
+
+    // function onlyNumbers(num) {
+    //   num.value = num.value.replace(/\D/g, "");
+    // }
 
     let arrNormal = [],
       arrOutTown = [],
       arrInTown = [],
       arrInBigTown = []; // Массив, куда запишутся все значения инпутов
 
-    function sumInputs(inp, arrInp) {
+    function sumInputs(inp, arrInp, resInput) {
+      // Разрешаем ввод в инпуты только цифр и одной точки
+      const allInputs = document.querySelectorAll("input");
+      allInputs.forEach((el) => {
+        el.addEventListener("input", () => {
+          el.value = el.value.replace(/[^0-9\.]/g, "");
+          el.addEventListener("keydown", (e) => {
+            if (e.key === "." && el.value.indexOf(".") >= 0) {
+              e.preventDefault();
+            }
+          });
+        });
+        // Кнопка очистки инпутов
+        document.querySelector(".clear-btn").addEventListener("click", () => {
+          el.value = " ";
+          arrInp.slice(0, arrInp.length);
+        });
+      });
       for (let i = 0; i < inp.length; i++) {
         arrInp.push(inp[i].value); // (*1)
 
@@ -39,19 +60,12 @@ const detailsCalculator = (
           // this - указывает на инпут, в котором печатают (который запускает эту функцию)
 
           // Все значения в массиве обновлены, можно обновить и результаты:
-          normalResults();
+          finalInputsResults(resInput, arrInp);
         });
       }
     }
-
-    sumInputs(inputsNormal, arrNormal);
-
-    normalResults();
-
-    /************/
-
-    function normalResults() {
-      normal.value = sumArr(arrNormal);
+    function finalInputsResults(resInput, arr) {
+      resInput.value = sumArr(arr);
     }
 
     function sumArr(arr) {
@@ -61,6 +75,12 @@ const detailsCalculator = (
       }
       return x;
     }
+    sumInputs(inputsNormal, arrNormal, normal);
+    sumInputs(inputsOutTown, arrOutTown, outTown);
+    sumInputs(inputsInTown, arrInTown, inTown);
+    sumInputs(inputsInBigTown, arrInBigTown, inBigTown);
+
+    /************/
   };
 
   changedInputs(
